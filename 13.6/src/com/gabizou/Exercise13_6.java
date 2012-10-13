@@ -55,7 +55,11 @@ public class Exercise13_6 extends JFrame{
 
 		/** Construct a FigurePanel with the specified type */
 		public FigurePanel(int type) {
+			if (type < 1 || type >6){
+				throw new IllegalArgumentException("Please enter an integer between 1 - 6.");
+			} else {
 			this.type = type;
+			}
 		}
 
 		/** Construct a FigurePanel with the specified type and filled */
@@ -165,6 +169,12 @@ public class Exercise13_6 extends JFrame{
 				} else {
 					g.drawPolygon(p);
 				}
+				break;
+			
+			default:
+				g.setColor(Color.BLACK);
+				g.drawLine(10, 10, width - 10 , height -10);
+				g.drawLine(width -10, 10, 10, height -10);
 				break;
 			}
 		}
