@@ -1,9 +1,21 @@
 package com.gabizou;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.GridLayout;
+import java.awt.Polygon;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.swing.*;
-import java.awt.event.*;
+import javax.swing.BorderFactory;
+import javax.swing.JApplet;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
 
 public class Exercise18_17 extends JApplet implements ActionListener {
 
@@ -12,14 +24,8 @@ public class Exercise18_17 extends JApplet implements ActionListener {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JTextField jtfCar1Speed;
-	private JTextField jtfCar2Speed;
-	private JTextField jtfCar3Speed;
-	private JTextField jtfCar4Speed;
-	private RaceCar car1;
-	private RaceCar car2;
-	private RaceCar car3;
-	private RaceCar car4;
+
+	protected List<RaceCar> carList; 
 
 	/**
 	 * @param args
@@ -38,6 +44,7 @@ public class Exercise18_17 extends JApplet implements ActionListener {
 		frame.setSize(400,200);
 		frame.setVisible(true);
 
+
 	}
 
 	class RaceCar extends JPanel implements Runnable {
@@ -48,7 +55,23 @@ public class Exercise18_17 extends JApplet implements ActionListener {
 		private static final long serialVersionUID = 1L;
 		private int xBase;
 		private int sleepTime;
+		private Thread thread;
+		protected JTextField carSpeed;
+		protected int carID;
+		protected JLabel carLabel;
 
+		public RaceCar(int ID) {
+			this.xBase = 0;
+			this.thread = new Thread(this);
+			this.sleepTime = 10;
+
+			this.carID = ID;
+
+			setBorder(BorderFactory.createLineBorder(Color.BLACK));
+			thread.start();
+			this.carSpeed = new JTextField(4);
+			this.carLabel = new JLabel("Car "+carID+": ");
+		}
 
 		public void run() {
 			try {
@@ -61,9 +84,17 @@ public class Exercise18_17 extends JApplet implements ActionListener {
 				ex.printStackTrace();
 			}
 		}
+		
+		public JLabel getLabel() {
+			return carLabel;
+		}
 
 		public void setSpeed(int speed) {
 			sleepTime = speed;
+		}
+
+		public JTextField getSpeed() {
+			return carSpeed;
 		}
 
 		@Override
@@ -94,50 +125,38 @@ public class Exercise18_17 extends JApplet implements ActionListener {
 	}
 
 	public Exercise18_17() {
-		jtfCar1Speed = new JTextField(4);
-		jtfCar2Speed = new JTextField(4);
-		jtfCar3Speed = new JTextField(4);
-		jtfCar4Speed = new JTextField(4);
 
-		car1 = new RaceCar();
-		car2 = new RaceCar();
-		car3 = new RaceCar();
-		car4 = new RaceCar();
+		int n = 4;
 
 		JPanel panel1 = new JPanel();
-		panel1.add(new JLabel("Car 1: "));
-		panel1.add(jtfCar1Speed);
-		panel1.add(new JLabel("Car 2: "));
-		panel1.add(jtfCar2Speed);
-		panel1.add(new JLabel("Car 3: "));
-		panel1.add(jtfCar3Speed);
-		panel1.add(new JLabel("Car 4: "));
-		panel1.add(jtfCar4Speed);
+		JPanel panel2 = new JPanel(new GridLayout(n,1));
+		this.carList = new ArrayList<RaceCar>();
 
-		JPanel panel2 = new JPanel(new GridLayout(4,1));
-		panel2.add(car1);
-		panel2.add(car2);
-		panel2.add(car3);
-		panel2.add(car4);
+		for(int i=0; i<n; i++) {
+
+			RaceCar car = new RaceCar(i+1);
+			panel1.add(car.carLabel);
+			panel1.add(car.getSpeed());
+			panel2.add(car);
+			car.getSpeed().addActionListener(this);
+			carList.add(car);
+		}
+
 		add(panel1,"North");
 		add(panel2, "Center");
-
-		jtfCar1Speed.addActionListener(this);
-		jtfCar2Speed.addActionListener(this);
-		jtfCar3Speed.addActionListener(this);
-		jtfCar4Speed.addActionListener(this);
-
 	}
 
+
+
+	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource()== jtfCar1Speed) {
-			car1.setSpeed(Integer.parseInt(jtfCar1Speed.getText()));
-		} else if(e.getSource()== jtfCar2Speed) {
-			car1.setSpeed(Integer.parseInt(jtfCar2Speed.getText()));
-		} else if(e.getSource()== jtfCar3Speed) {
-			car1.setSpeed(Integer.parseInt(jtfCar3Speed.getText()));
-		} else if(e.getSource()== jtfCar4Speed) {
-			car1.setSpeed(Integer.parseInt(jtfCar4Speed.getText()));
+		
+		Object source = e.getSource();
+		for (RaceCar rc : carList) { 
+			if (rc.getSpeed().equals(source)) {
+				String entry = rc.getSpeed().getText();
+				rc.setSpeed(Integer.parseInt(entry));
+			}
 		}
 	}
 }

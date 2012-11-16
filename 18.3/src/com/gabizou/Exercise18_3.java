@@ -23,11 +23,12 @@ public class Exercise18_3 extends Applet implements ActionListener{
 	public Exercise18_3() {
 
 		GridBagLayout gbag = new GridBagLayout();
+		setSize(300,500);
 		GridBagConstraints gbc = new GridBagConstraints();
 		setLayout(gbag);
 
 		Label heading = new Label("Enter interest rate, year and loan amount");
-		Label rateLab = new Label("Interest Rate(e.g. 5.5 for 5.5%");
+		Label rateLab = new Label("Interest Rate(e.g. 5.5 for 5.5%)");
 		Label periodLab = new Label("Years");
 		Label amountLab = new Label("Loan Amount");
 		Label paymentLab = new Label("Monthly Paymet");
@@ -175,7 +176,7 @@ public class Exercise18_3 extends Applet implements ActionListener{
 		JFrame frame = new JFrame("Exercise18_3");
 		Exercise18_3 reg = new Exercise18_3();
 		frame.add(reg);
-		frame.setSize(300,300);
+		frame.setSize(400,500);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
