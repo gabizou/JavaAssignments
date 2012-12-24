@@ -9,6 +9,7 @@ public class Exercise15_7 {
 		GeometricObject geoObject1 = new Circle(5);
 		GeometricObject geoObject2 = new Rectangle(5,3);
 		System.out.println("The larger object's area is " + max(geoObject1, geoObject2));
+		
 	}
 
 	public static double max(GeometricObject geoObject1, GeometricObject geoObject2) {

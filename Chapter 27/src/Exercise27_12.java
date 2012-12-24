@@ -6,7 +6,7 @@ import java.awt.event.*;
 import java.util.*;
 
 public class Exercise27_12 extends JApplet {
-	private BST<Integer> tree = new BST<Integer>();
+	private BinaryTree<Integer> tree = new BinaryTree<Integer>();
 
 	public Exercise27_12() {
 		tree.insert(50);

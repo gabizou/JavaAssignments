@@ -4,7 +4,7 @@ public class Rectangle extends GeometricObject {
 	private double width;
 	private double height;
 
-	public Rectangle() {
+	private Rectangle() {
 	}
 
 	public Rectangle(double width, double height) {

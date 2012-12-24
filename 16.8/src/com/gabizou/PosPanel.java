@@ -26,6 +26,7 @@ public class PosPanel extends JPanel{
 			}
 		});
 	}
+	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawString(msg, x, y);

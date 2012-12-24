@@ -3,7 +3,7 @@ package com.gabizou;
 public class Circle extends GeometricObject {
 	private double radius;
 
-	public Circle() {
+	private Circle() {
 	}
 
 	public Circle(double radius) {
